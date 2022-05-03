@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react"
 import { useHistory } from 'react-router-dom'
-import { createEvent, getGamers } from './GameManager.js'
+import { createEvent, getGamers } from './EventManager.js'
 
 
-export const GameForm = () => {
+export const EventForm = () => {
   const history = useHistory()
   const [gamers, setGamers] = useState([])
 
