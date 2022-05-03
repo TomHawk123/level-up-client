@@ -38,7 +38,7 @@ export const GameForm = () => {
         <div className="form-group">
           <label htmlFor="skillLevel">Skill Level:</label>
           <input type="number" name="skillLevel" required autoFocus className="form-control"
-            value={currentGame.skillLevel}
+            value={`${currentGame.skillLevel}`}
             onChange={changeGameState}
           />
         </div>
@@ -48,7 +48,7 @@ export const GameForm = () => {
           <label htmlFor="numberOfPlayers">Number of Players:</label>
           <input type="number" name="numberOfPlayers" required autoFocus
             className="form-control"
-            value={currentGame.numberOfPlayers}
+            value={`${currentGame.numberOfPlayers}`}
             onChange={changeGameState} />
         </div>
       </fieldset>
@@ -74,7 +74,7 @@ export const GameForm = () => {
         <div className="form-group">
           <label htmlFor="gameTypeId">Game Type Id:</label>
           <input type="number" name="gameTypeId" required autoFocus className="form-control"
-            value={currentGame.gameTypeId}
+            value={`${currentGame.gameTypeId}`}
             onChange={changeGameState}
           />
         </div>
@@ -89,16 +89,16 @@ export const GameForm = () => {
           evt.preventDefault()
 
           const game = {
-            maker: currentGame.maker,
+            game_type: parseInt(currentGame.gameTypeId),
             title: currentGame.title,
-            numberOfPlayers: parseInt(currentGame.numberOfPlayers),
-            skillLevel: parseInt(currentGame.skillLevel),
-            gameTypeId: parseInt(currentGame.gameTypeId)
+            maker: currentGame.maker,
+            number_of_players: parseInt(currentGame.numberOfPlayers),
+            skill_level: parseInt(currentGame.skillLevel),
           }
 
           // Send POST request to your API
           createGame(game)
-            .then(() => history.push("/games"))
+            .then(() => history.push("/"))
         }}
         className="btn btn-primary">Create</button>
     </form>

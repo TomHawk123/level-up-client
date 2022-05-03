@@ -4,7 +4,7 @@ export const fetchIt = (url, method = "GET", body = null) => {
   // declare default options object
   let options = {
     "method": method,
-    "headers": {}
+    "headers": { "Authorization": `Token ${localStorage.getItem("lu_token")}` }
   }
   // switch case based on method type
   switch (method) {
@@ -13,7 +13,8 @@ export const fetchIt = (url, method = "GET", body = null) => {
     case "PUT":
     case "PATCH":
       options.headers = {
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
+        "Authorization": `Token ${localStorage.getItem("lu_token")}`
       }
       break;
     default:
