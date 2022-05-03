@@ -1,3 +1,5 @@
+import { fetchIt } from "../utils/Fetch"
+
 export const getEvents = () => {
   return fetch("http://localhost:8000/events", {
     headers: {
@@ -6,3 +8,7 @@ export const getEvents = () => {
   })
     .then(response => response.json())
 }
+
+export const createEvent = (newEvent) => fetchIt(`${API}/events`)
+
+export const getGamers = () => fetchIt(`${API}/gamers`)
