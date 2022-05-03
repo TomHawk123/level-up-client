@@ -4,6 +4,7 @@ import { useHistory } from "react-router-dom"
 
 export const EventList = (props) => {
   const [events, setEvents] = useState([])
+  const history = useHistory()
 
   useEffect(() => {
     getEvents().then(data => setEvents(data))

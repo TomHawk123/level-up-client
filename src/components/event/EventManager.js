@@ -1,7 +1,10 @@
 import { fetchIt } from "../utils/Fetch"
 
+
+const API = `http://localhost:8000`
+
 export const getEvents = () => {
-  return fetch("http://localhost:8000/events", {
+  return fetch(`${API}/events`, {
     headers: {
       "Authorization": `Token ${localStorage.getItem("lu_token")}`
     }
@@ -9,6 +12,6 @@ export const getEvents = () => {
     .then(response => response.json())
 }
 
-export const createEvent = (newEvent) => fetchIt(`${API}/events`)
+export const createEvent = (newEvent) => fetchIt(`${API}/events`, "POST", newEvent)
 
-export const getGamers = () => fetchIt(`${API}/gamers`)
+export const getGamers = () => fetchIt(`${API}/events`)
