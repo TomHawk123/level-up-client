@@ -13,11 +13,11 @@ export const EventForm = () => {
       provide some default values.
   */
   const [currentEvent, setCurrentEvent] = useState({
-    skillLevel: 1,
-    numberOfPlayers: 0,
-    title: "",
-    maker: "",
-    gameTypeId: 0
+    gameId: 1,
+    description: "",
+    date: "",
+    time: "",
+    organizerId: 0
   })
 
   useEffect(() => {
@@ -36,8 +36,8 @@ export const EventForm = () => {
       <h2 className="gameForm__title">Register New Event</h2>
       <fieldset>
         <div className="form-group">
-          <label htmlFor="game">Game Id:</label>
-          <input type="number" name="game" required autoFocus
+          <label htmlFor="gameId">Game Id:</label>
+          <input type="number" name="gameId" required autoFocus
             className="form-control"
             value={`${currentEvent.gameId}`}
             onChange={changeEventState}
@@ -47,10 +47,12 @@ export const EventForm = () => {
       <fieldset>
         <div className="form-group">
           <label htmlFor="description">Description :</label>
-          <input type="number" name="description" required autoFocus
+          <input type="text" name="description" required autoFocus
             className="form-control"
+            placeholder="Description of event"
             value={`${currentEvent.description}`}
-            onChange={changeEventState} />
+            onChange={changeEventState}
+          />
         </div>
       </fieldset>
       <fieldset>
@@ -66,7 +68,7 @@ export const EventForm = () => {
       </fieldset>
       <fieldset>
         <div className="form-group">
-          <label htmlFor="time">Maker:</label>
+          <label htmlFor="time">Time:</label>
           <input type="text" name="time" required autoFocus
             className="form-control"
             placeholder="HH:MM"
@@ -77,10 +79,10 @@ export const EventForm = () => {
       </fieldset>
       <fieldset>
         <div className="form-group">
-          <label htmlFor="organizerId">Organizer:</label>
+          <label htmlFor="organizerId">Organizer Id:</label>
           <input type="number" name="organizerId" required autoFocus
             className="form-control"
-            value={`${currentEvent.organizer}`}
+            value={`${currentEvent.organizerId}`}
             onChange={changeEventState}
           />
         </div>
@@ -95,10 +97,10 @@ export const EventForm = () => {
           e.preventDefault()
 
           const event = {
-            game: parseInt(currentEvent.gameTypeId),
+            game: currentEvent.gameId,
             description: currentEvent.description,
             date: currentEvent.date,
-            time: currentEvent.numberOfPlayers,
+            time: currentEvent.time,
             organizer: currentEvent.organizerId
           }
 
