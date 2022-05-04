@@ -11,7 +11,7 @@ export const ApplicationViews = () => {
             margin: "5rem 2rem",
             lineHeight: "1.75rem"
         }}>
-            <Route exact path="/">
+            <Route exact path="/games">
                 <GameList />
             </Route>
             <Route exact path="/events">
@@ -22,6 +22,9 @@ export const ApplicationViews = () => {
             </Route>
             <Route exact path="/events/new">
                 <EventForm />
+            </Route>
+            <Route exact path="/games/edit/:gameId(\d+)">
+                <GameForm />
             </Route>
         </main>
     </>

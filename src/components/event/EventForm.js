@@ -58,7 +58,7 @@ export const EventForm = () => {
       <fieldset>
         <div className="form-group">
           <label htmlFor="date">Date :</label>
-          <input type="text" name="date" required autoFocus
+          <input type="date" name="date" required autoFocus
             placeholder="YYYY-MM-DD"
             className="form-control"
             value={currentEvent.date}
