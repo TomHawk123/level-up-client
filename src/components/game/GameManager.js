@@ -8,6 +8,6 @@ export const createGame = game => fetchIt(`${API}/games`, "POST", game)
 
 export const getGameTypes = () => fetchIt(`${API}/gametypes`)
 
-export const updateGame = id => fetchIt(`${API}/games/${game.id}`, "PUT", game)
+export const updateGame = game => fetchIt(`${API}/games/${game.id}`, "PUT", game)
 
 export const getGameById = game => fetchIt(`${API}/games/${game}`)

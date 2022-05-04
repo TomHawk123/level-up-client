@@ -3,7 +3,6 @@ import { useParams } from "react-router-dom"
 import { useHistory } from 'react-router-dom'
 import { createGame, getGameTypes, updateGame, getGameById } from './GameManager.js'
 
-
 export const GameForm = () => {
   const [gameTypes, setGameTypes] = useState([])
   const history = useHistory()
@@ -40,39 +39,36 @@ export const GameForm = () => {
     const gameTypeId = parseInt(currentGame.gameTypeId)
 
     if (editMode) {
-      setCurrentGame({
+      updateGame({
         id: currentGame.id,
-        game_type: parseInt(currentGame.gameTypeId),
+        game_type: parseInt(currentGame.game_type),
         title: currentGame.title,
         maker: currentGame.maker,
-        number_of_players: parseInt(currentGame.numberOfPlayers),
-        skill_level: parseInt(currentGame.skillLevel)
+        number_of_players: parseInt(currentGame.number_of_players),
+        skill_level: parseInt(currentGame.skill_level)
       })
         .then(() => history.push("/games"))
     } else {
       createGame({
-        game_type: parseInt(currentGame.gameTypeId),
+        game_type: parseInt(currentGame.game_type),
         title: currentGame.title,
         maker: currentGame.maker,
-        number_of_players: parseInt(currentGame.numberOfPlayers),
-        skill_level: parseInt(currentGame.skillLevel)
+        number_of_players: parseInt(currentGame.number_of_players),
+        skill_level: parseInt(currentGame.skill_level)
       })
         .then(() => history.push("/games"))
     }
   }
 
-
   return (
     <form className="gameForm">
       <h2 className="gameForm__title">{editMode ? "Update Game" : "Register New Game"}</h2>
-      <fieldset id="skillLevel">
+      <fieldset id="skill_level">
         <div className="form-group">
-          <label htmlFor="skillLevel">Skill Level:</label>
+          <label htmlFor="skill_level">Skill Level:</label>
           <input type="number" name="skill_level" required autoFocus className="form-control"
             value={`${currentGame.skill_level}`}
-            onChange={
-              e => { changeGameState(e) }
-            }
+            onChange={changeGameState}
           />
         </div>
       </fieldset>
@@ -82,9 +78,8 @@ export const GameForm = () => {
           <input type="number" name="number_of_players" required autoFocus
             className="form-control"
             value={`${currentGame.number_of_players}`}
-            onChange={
-              e => { changeGameState(e) }
-            } />
+            onChange={changeGameState}
+          />
         </div>
       </fieldset>
       <fieldset id="title">
@@ -92,9 +87,7 @@ export const GameForm = () => {
           <label htmlFor="title">Title:</label>
           <input type="text" name="title" required autoFocus className="form-control"
             value={currentGame.title}
-            onChange={
-              e => { changeGameState(e) }
-            }
+            onChange={changeGameState}
           />
         </div>
       </fieldset>
@@ -103,9 +96,7 @@ export const GameForm = () => {
           <label htmlFor="maker">Maker:</label>
           <input type="text" name="maker" required autoFocus className="form-control"
             value={currentGame.maker}
-            onChange={
-              e => { changeGameState(e) }
-            }
+            onChange={changeGameState}
           />
         </div>
       </fieldset>
@@ -114,19 +105,16 @@ export const GameForm = () => {
           <label htmlFor="gameTypeId">Game Type Id:</label>
           <input type="number" name="game_type" required autoFocus className="form-control"
             value={`${currentGame.game_type}`}
-            onChange={
-              e => { changeGameState(e) }
-            }
+            onChange={changeGameState}
           />
         </div>
       </fieldset>
-
       <button type="submit"
         onClick={e => {
           e.preventDefault()
           constructNewGame()
         }}
-        className="btn btn-primary">{editMode ? "Create Game" : "Update Game"}</button>
+        className="btn btn-primary">{editMode ? "Update Game" : "Create Game"}</button>
     </form>
   )
 }
