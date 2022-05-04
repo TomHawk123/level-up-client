@@ -1,27 +1,24 @@
 import React, { useState, useEffect } from "react"
-import { useHistory } from 'react-router-dom'
-import { createEvent, getGamers } from './EventManager.js'
-
+import { useHistory, useParams } from 'react-router-dom'
+import { createEvent, getGamers, updateEvent, getEventById } from './EventManager.js'
 
 export const EventForm = () => {
   const history = useHistory()
   const [gamers, setGamers] = useState([])
+  const { eventId } = useParams()
+  const [currentEvent, setCurrentEvent] = useState({})
 
-  /*
-      Since the input fields are bound to the values of
-      the properties of this state variable, you need to
-      provide some default values.
-  */
-  const [currentEvent, setCurrentEvent] = useState({
-    gameId: 1,
-    description: "",
-    date: "",
-    time: "",
-    organizerId: 0
-  })
+  const editMode = eventId ? true : false
 
   useEffect(() => {
     getGamers(setGamers)
+    if (editMode) {
+      getEventById(eventId)
+        .then(res => {
+          res.event = res.event.id
+          setCurrentEvent
+        })
+    }
   }, [])
 
   const changeEventState = (e) => {
