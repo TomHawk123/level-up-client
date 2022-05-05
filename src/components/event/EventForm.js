@@ -8,40 +8,73 @@ export const EventForm = () => {
   const { eventId } = useParams()
   const [currentEvent, setCurrentEvent] = useState({})
 
+  useEffect(
+    () => {
+      getGamers(setGamers)
+    }, [])
+
   const editMode = eventId ? true : false
 
-  useEffect(() => {
-    getGamers(setGamers)
-    if (editMode) {
-      getEventById(eventId)
-        .then(res => {
-          res.event = res.event.id
-          setCurrentEvent
-        })
-    }
-  }, [])
+  useEffect(
+    () => {
+      if (editMode) {
+        getEventById(eventId)
+          .then(
+            r => {
+              r.game = r.game.id
+              r.organizer = r.organizer.id
+              setCurrentEvent(r)
+            })
+      }
+    },
+    []
+  )
 
-  const changeEventState = (e) => {
+  const changeEventState = e => {
     // TODO: Complete the onChange function
     const newEvent = Object.assign({}, currentEvent)
     newEvent[e.target.name] = e.target.value
     setCurrentEvent(newEvent)
   }
 
+  const constructNewEvent = () => {
+
+    if (editMode) {
+      updateEvent({
+        id: parseInt(currentEvent.id),
+        game: currentEvent.game,
+        description: currentEvent.description,
+        date: currentEvent.date,
+        time: currentEvent.time,
+        organizer: parseInt(currentEvent.organizer)
+      })
+    } else {
+      createEvent({
+        game: currentEvent.game,
+        description: currentEvent.description,
+        date: currentEvent.date,
+        time: currentEvent.time,
+        organizer: parseInt(currentEvent.organizer)
+      })
+    }
+  }
+
   return (
     <form className="gameForm">
-      <h2 className="gameForm__title">Register New Event</h2>
-      <fieldset>
+      <h2 className="gameForm__title">
+        {editMode ? "Edit Event" : "Register New Event"}
+      </h2>
+      <fieldset id="game">
         <div className="form-group">
           <label htmlFor="gameId">Game Id:</label>
-          <input type="number" name="gameId" required autoFocus
+          <input type="number" name="game" required autoFocus
             className="form-control"
-            value={`${currentEvent.gameId}`}
+            value={`${currentEvent.game}`}
             onChange={changeEventState}
           />
         </div>
       </fieldset>
-      <fieldset>
+      <fieldset id="description">
         <div className="form-group">
           <label htmlFor="description">Description :</label>
           <input type="text" name="description" required autoFocus
@@ -52,7 +85,7 @@ export const EventForm = () => {
           />
         </div>
       </fieldset>
-      <fieldset>
+      <fieldset id="date">
         <div className="form-group">
           <label htmlFor="date">Date :</label>
           <input type="date" name="date" required autoFocus
@@ -63,7 +96,7 @@ export const EventForm = () => {
           />
         </div>
       </fieldset>
-      <fieldset>
+      <fieldset id="time">
         <div className="form-group">
           <label htmlFor="time">Time:</label>
           <input type="text" name="time" required autoFocus
@@ -74,38 +107,25 @@ export const EventForm = () => {
           />
         </div>
       </fieldset>
-      <fieldset>
+      <fieldset id="organizer">
         <div className="form-group">
           <label htmlFor="organizerId">Organizer Id:</label>
-          <input type="number" name="organizerId" required autoFocus
+          <input type="number" name="organizer" required autoFocus
             className="form-control"
-            value={`${currentEvent.organizerId}`}
+            value={`${currentEvent.organizer}`}
             onChange={changeEventState}
           />
         </div>
       </fieldset>
-
-
-      {/* TODO: create the rest of the input fields */}
-
       <button type="submit"
         onClick={e => {
           // Prevent form from being submitted
           e.preventDefault()
-
-          const event = {
-            game: currentEvent.gameId,
-            description: currentEvent.description,
-            date: currentEvent.date,
-            time: currentEvent.time,
-            organizer: currentEvent.organizerId
-          }
-
-          // Send POST request to your API
-          createEvent(event)
-            .then(() => history.push("/events"))
+          constructNewEvent()
+          history.push("/events")
         }}
-        className="btn btn-primary">Create Event</button>
+        className="btn btn-primary">{editMode ? "Edit Event" : "Create Event"}
+      </button>
     </form>
   )
 }

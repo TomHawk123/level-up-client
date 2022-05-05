@@ -6,8 +6,8 @@ export const getEvents = () => fetchIt(`${API}/events`)
 
 export const createEvent = (newEvent) => fetchIt(`${API}/events`, "POST", newEvent)
 
-export const getGamers = () => fetchIt(`${API}/events`)
-
-export const getEventById = event => fetchIt(`${API}/events/${event}`)
+export const getGamers = () => fetchIt(`${API}/gamers`)
 
 export const updateEvent = event => fetchIt(`${API}/events/${event.id}`, "PUT", event)
+
+export const getEventById = event => fetchIt(`${API}/events/${event}`)

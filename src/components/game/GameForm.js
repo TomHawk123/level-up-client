@@ -36,7 +36,6 @@ export const GameForm = () => {
   }
 
   const constructNewGame = () => {
-    const gameTypeId = parseInt(currentGame.gameTypeId)
 
     if (editMode) {
       updateGame({
@@ -114,7 +113,8 @@ export const GameForm = () => {
           e.preventDefault()
           constructNewGame()
         }}
-        className="btn btn-primary">{editMode ? "Update Game" : "Create Game"}</button>
+        className="btn btn-primary">{editMode ? "Update Game" : "Create Game"}
+      </button>
     </form>
   )
 }

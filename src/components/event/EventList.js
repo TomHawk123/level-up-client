@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react"
 import { getEvents } from "./EventManager.js"
-import { useHistory } from "react-router-dom"
+import { useHistory, Link } from "react-router-dom"
 
 export const EventList = (props) => {
   const [events, setEvents] = useState([])
@@ -16,7 +16,12 @@ export const EventList = (props) => {
         {
           events.map(event => {
             return <section key={`event--${event.id}`} className="event">
-              <div className="event__game">{event.game.title} Skill Level: {event.game.skill_level}</div>
+              <div className="event__game">
+                <Link to={`events/edit/${event.id}`}>
+                  {event.game.title}
+                </Link>
+              </div>
+              <div>Skill Level: {event.game.skill_level}</div>
               <div className="event__description">{event.description}</div>
               <div className="date">{event.date}</div>
               <div className="event__time">{event.time}</div>
